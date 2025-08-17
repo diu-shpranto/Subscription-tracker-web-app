@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Premium Trial Tracker</title>
+    <style>
+        :root {
+            --active-color: #4CAF50;
+            --ending-color: #FF9800;
+            --ended-color: #F44336;
+            --remove-color: #F44336;
+            --header-bg: #f2f2f2;
+            --row-hover: #f5f5f5;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #FF0000;
+            text-align: center;
+            margin: 20px 0 30px;
+            font-size: 2.2em;
+        }
+        .control-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 2px rgba(255,0,0,0.1);
+        }
+        button {
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
+            align-self: end;
+        }
+        button:hover {
+            background-color: #D50000;
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: var(--header-bg);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background-color: var(--row-hover);
+        }
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+        .status-active {
+            background-color: var(--active-color);
+            color: white;
+        }
+        .status-ending {
+            background-color: var(--ending-color);
+            color: white;
+        }
+        .status-ended {
+            background-color: var(--ended-color);
+            color: white;
+        }
+        .remove-btn {
+            background-color: var(--remove-color);
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        .time-left {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .control-panel {
+                grid-template-columns: 1fr;
+            }
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 YouTube Premium Trial Tracker</h1>
+    
+    <div class="control-panel">
+        <div class="form-group">
+            <label for="email">✉️ Gmail Address</label>
+            <input type="email" id="email" placeholder="example@gmail.com" required>
+        </div>
+        <div class="form-group">
+            <label for="startDate">📅 Trial Start Date & Time</label>
+            <input type="datetime-local" id="startDate" required>
+        </div>
+        <div class="form-group">
+            <label for="duration">⏳ Trial Duration (days)</label>
+            <input type="number" id="duration" min="1" value="30" required>
+        </div>
+        <button id="addAccount">➕ Add Account</button>
+    </div>
+
+    <table id="accountsTable">
+        <thead>
+            <tr>
+                <th>Gmail</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Time Left</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="accountsTableBody">
+            <!-- Accounts will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <script src="app.js"></script>
+</body>
+</html>
