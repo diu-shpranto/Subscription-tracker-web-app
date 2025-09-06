@@ -1,3 +1,6 @@
+// ===================
+// Global Variables
+// ===================
 const STORAGE_KEY = "accountsData";
 let accounts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
@@ -39,10 +42,23 @@ function renderTable() {
 
     const timeLeft = timeLeftMs > 0 ? msToTime(timeLeftMs) : "Expired";
 
+    // ✅ Date + Time formatting (like your photo)
+    const dateOptions = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true 
+    };
+    const startFormatted = new Date(acc.startDate).toLocaleString("en-US", dateOptions);
+    const endFormatted = endDate.toLocaleString("en-US", dateOptions);
+
     row.innerHTML = `
       <td>${acc.email}</td>
-      <td>${new Date(acc.startDate).toLocaleString()}</td>
-      <td>${endDate.toLocaleString()}</td>
+      <td>${startFormatted}</td>
+      <td>${endFormatted}</td>
       <td class="time-left">${timeLeft}</td>
       <td><span class="status ${statusClass}">${statusText}</span></td>
       <td><button class="remove-btn" data-index="${index}">Remove</button></td>
@@ -62,13 +78,14 @@ function renderTable() {
   });
 }
 
-// Convert ms → Days, Hours, Minutes
+// Convert ms → Days, Hours, Minutes, Seconds
 function msToTime(duration) {
   let days = Math.floor(duration / (1000 * 60 * 60 * 24));
   let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
   let minutes = Math.floor((duration / (1000 * 60)) % 60);
+  let seconds = Math.floor((duration / 1000) % 60);
 
-  return `${days}d ${hours}h ${minutes}m`;
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
 // Add Account
@@ -91,8 +108,8 @@ addAccountBtn.addEventListener("click", () => {
   durationInput.value = 30;
 });
 
-// Update countdown every minute
-setInterval(renderTable, 60 * 1000);
+// Update countdown every second
+setInterval(renderTable, 1000);
 
 // First render
 renderTable();
