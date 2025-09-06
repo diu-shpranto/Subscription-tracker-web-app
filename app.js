@@ -49,7 +49,6 @@ function renderTable() {
       day: 'numeric',
       hour: 'numeric',
       minute: '2-digit',
-      second: '2-digit',
       hour12: true 
     };
     const startFormatted = new Date(acc.startDate).toLocaleString("en-US", dateOptions);
