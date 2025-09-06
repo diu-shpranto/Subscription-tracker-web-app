@@ -34,8 +34,8 @@ function renderTable() {
     if (timeLeftMs <= 0) {
       statusClass = "status-ended";
       statusText = "Ended";
-    } else if (timeLeftMs < 3 * 24 * 60 * 60 * 1000) {
-      // less than 3 days left
+    } else if (timeLeftMs < 1 * 24 * 60 * 60 * 1000) {
+      // less than 1 days left
       statusClass = "status-ending";
       statusText = "Ending Soon";
     }
