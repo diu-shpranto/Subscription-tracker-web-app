@@ -1,161 +1,144 @@
-// ===================
-// Global Variables
-// ===================
-const STORAGE_KEY = "accountsData";
-let accounts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+let accounts = [];
+let editingIndex = null;
 
-// Elements
+// DOM elements
 const emailInput = document.getElementById("email");
 const startDateInput = document.getElementById("startDate");
 const durationInput = document.getElementById("duration");
 const addAccountBtn = document.getElementById("addAccount");
-const tableBody = document.getElementById("accountsTableBody");
+const accountsTableBody = document.getElementById("accountsTableBody");
 
-// Save to LocalStorage
-function saveAccounts() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(accounts));
-}
+// Edit modal
+const editModal = document.getElementById("editModal");
+const editEmail = document.getElementById("editEmail");
+const editStartDate = document.getElementById("editStartDate");
+const editDuration = document.getElementById("editDuration");
+const saveEditBtn = document.getElementById("saveEditBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
 
-// Render Table
-function renderTable() {
-  tableBody.innerHTML = "";
-  accounts.forEach((acc, index) => {
-    const row = document.createElement("tr");
-
-    const endDate = new Date(acc.startDate);
-    endDate.setDate(endDate.getDate() + parseInt(acc.duration));
-
-    const now = new Date();
-    const timeLeftMs = endDate - now;
-
-    let statusClass = "status-active";
-    let statusText = "Active";
-
-    if (timeLeftMs <= 0) {
-      statusClass = "status-ended";
-      statusText = "Ended";
-    } else if (timeLeftMs < 1 * 24 * 60 * 60 * 1000) {
-      // less than 1 days left
-      statusClass = "status-ending";
-      statusText = "Ending Soon";
-    }
-
-    const timeLeft = timeLeftMs > 0 ? msToTime(timeLeftMs) : "Expired";
-
-    // ✅ Date + Time formatting (like your photo)
-    const dateOptions = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true 
-    };
-    const startFormatted = new Date(acc.startDate).toLocaleString("en-US", dateOptions);
-    const endFormatted = endDate.toLocaleString("en-US", dateOptions);
-
-    row.innerHTML = `
-      <td>${acc.email}</td>
-      <td>${startFormatted}</td>
-      <td>${endFormatted}</td>
-      <td class="time-left">${timeLeft}</td>
-      <td><span class="status ${statusClass}">${statusText}</span></td>
-      <td><button class="remove-btn" data-index="${index}">Remove</button></td>
-    `;
-
-    tableBody.appendChild(row);
-  });
-
-  // Attach remove button events
-  document.querySelectorAll(".remove-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const idx = e.target.dataset.index;
-      accounts.splice(idx, 1);
-      saveAccounts();
-      renderTable();
-    });
-  });
-}
-
-// Convert ms → Days, Hours, Minutes, Seconds
-function msToTime(duration) {
-  let days = Math.floor(duration / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-  let minutes = Math.floor((duration / (1000 * 60)) % 60);
-  let seconds = Math.floor((duration / 1000) % 60);
-
-  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-// Add Account
+// Add account
 addAccountBtn.addEventListener("click", () => {
   const email = emailInput.value.trim();
   const startDate = startDateInput.value;
   const duration = parseInt(durationInput.value);
 
-  if (!email || !startDate || !duration) {
-    alert("⚠️ Please fill all fields!");
-    return;
-  }
+  if (!email || !startDate || !duration) return alert("Please fill all fields");
 
-  accounts.push({ email, startDate, duration });
-  saveAccounts();
+  const endDate = new Date(startDate);
+  endDate.setDate(endDate.getDate() + duration);
+
+  accounts.push({ email, startDate, duration, endDate: endDate.toISOString() });
+  saveData();
   renderTable();
 
+  // reset fields
   emailInput.value = "";
   startDateInput.value = "";
   durationInput.value = 30;
 });
 
-// Update countdown every second
-setInterval(renderTable, 1000);
+// Render table
+function renderTable() {
+  accountsTableBody.innerHTML = "";
 
-// First render
+  accounts.forEach((acc, index) => {
+    const tr = document.createElement("tr");
+
+    const startDate = new Date(acc.startDate);
+    const endDate = new Date(acc.endDate);
+
+    tr.innerHTML = `
+      <td>${acc.email}</td>
+      <td>${startDate.toLocaleString()}</td>
+      <td>${endDate.toLocaleString()}</td>
+      <td class="time-left">${getTimeLeft(endDate)}</td>
+      <td><span class="status ${getStatus(endDate)}">${getStatus(endDate).replace("status-","")}</span></td>
+      <td>
+        <button class="edit-btn">✏️ Edit</button>
+        <button class="remove-btn">🗑 Remove</button>
+      </td>
+    `;
+
+    // Edit button
+    tr.querySelector(".edit-btn").addEventListener("click", () => openEditModal(index));
+
+    // Remove button
+    tr.querySelector(".remove-btn").addEventListener("click", () => {
+      accounts.splice(index, 1);
+      saveData();
+      renderTable();
+    });
+
+    accountsTableBody.appendChild(tr);
+  });
+}
+
+// Get time left
+function getTimeLeft(endDate) {
+  const now = new Date();
+  const diff = endDate - now;
+  if (diff <= 0) return "Expired";
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  return `${days}d ${hours}h ${minutes}m`;
+}
+
+// Get status
+function getStatus(endDate) {
+  const now = new Date();
+  if (endDate < now) return "status-ended";
+
+  const diffDays = (endDate - now) / (1000 * 60 * 60 * 24);
+  if (diffDays <= 3) return "status-ending";
+  return "status-active";
+}
+
+// Save & Load data
+function saveData() {
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+}
+function loadData() {
+  const data = localStorage.getItem("accounts");
+  if (data) accounts = JSON.parse(data);
+}
+
+// Edit modal
+function openEditModal(index) {
+  editingIndex = index;
+  const acc = accounts[index];
+  editEmail.value = acc.email;
+  editStartDate.value = acc.startDate;
+  editDuration.value = acc.duration;
+  editModal.style.display = "flex";
+}
+
+saveEditBtn.addEventListener("click", () => {
+  if (editingIndex === null) return;
+
+  accounts[editingIndex].email = editEmail.value;
+  accounts[editingIndex].startDate = editStartDate.value;
+  accounts[editingIndex].duration = parseInt(editDuration.value);
+
+  const endDate = new Date(editStartDate.value);
+  endDate.setDate(endDate.getDate() + accounts[editingIndex].duration);
+  accounts[editingIndex].endDate = endDate.toISOString();
+
+  saveData();
+  renderTable();
+  editModal.style.display = "none";
+  editingIndex = null;
+});
+
+cancelEditBtn.addEventListener("click", () => {
+  editModal.style.display = "none";
+  editingIndex = null;
+});
+
+// Auto-update countdown every minute
+setInterval(renderTable, 60000);
+
+// Init
+loadData();
 renderTable();
-
-
-// ===================
-// Export & Import
-// ===================
-
-// Export Data
-document.getElementById("exportBtn").addEventListener("click", () => {
-  const data = JSON.stringify(accounts, null, 2);
-  const blob = new Blob([data], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "accountsBackup.json";
-  a.click();
-
-  URL.revokeObjectURL(url);
-});
-
-// Import Data
-document.getElementById("importBtn").addEventListener("click", () => {
-  document.getElementById("importFile").click();
-});
-
-document.getElementById("importFile").addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (event) {
-    try {
-      const importedData = JSON.parse(event.target.result);
-      if (Array.isArray(importedData)) {
-        accounts = importedData;
-        saveAccounts();
-        renderTable();
-        alert("✅ Data imported successfully!");
-      } else {
-        alert("❌ Invalid data format!");
-      }
-    } catch (e) {
-      alert("❌ Error reading file!");
-    }
-  };
-  reader.readAsText(file);
-});
