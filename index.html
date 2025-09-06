@@ -138,6 +138,25 @@
                 font-size: 14px;
             }
         }
+        body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #exportBtn {
+      background: #4CAF50;
+      color: white;
+    }
+    #importBtn {
+      background: #2196F3;
+      color: white;
+    }
     </style>
 </head>
 <body>
@@ -158,7 +177,12 @@
         </div>
         <button id="addAccount">➕ Add Account</button>
     </div>
+<br>
+  <h2>Export & Import Data</h2>
 
+  <button id="exportBtn">Export Data</button>
+  <input type="file" id="importFile" accept=".json" hidden />
+  <button id="importBtn">Import Data</button>
     <table id="accountsTable">
         <thead>
             <tr>

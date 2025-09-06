@@ -164,3 +164,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+const STORAGE_KEY = "myData";
+
+// Example: Save some sample data in LocalStorage if empty
+if (!localStorage.getItem(STORAGE_KEY)) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: "Pranto", score: 100 }));
+}
+
+// Export Data
+document.getElementById("exportBtn").addEventListener("click", () => {
+  const data = localStorage.getItem(STORAGE_KEY) || "{}";
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDataBackup.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+});
+
+// Import Data
+document.getElementById("importBtn").addEventListener("click", () => {
+  document.getElementById("importFile").click();
+});
+
+document.getElementById("importFile").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    try {
+      const importedData = JSON.parse(event.target.result);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(importedData));
+      alert("✅ Data imported successfully!\nCheck console for details.");
+      console.log("Imported Data:", importedData);
+    } catch (e) {
+      alert("❌ Invalid JSON file!");
+    }
+  };
+  reader.readAsText(file);
+});
