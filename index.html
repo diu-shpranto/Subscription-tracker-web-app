@@ -6,7 +6,6 @@
 <title>🎥 Premium Trial Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root {
   --primary: #FF3B30;
@@ -98,91 +97,6 @@ body.dark .header {
   display: flex;
   gap: 12px;
   align-items: center;
-}
-
-/* Dashboard Section */
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.dashboard-card {
-  background: var(--bg-card-light);
-  padding: 20px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
-}
-
-body.dark .dashboard-card {
-  background: var(--bg-card-dark);
-}
-
-.dashboard-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--text-secondary-light);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-body.dark .dashboard-card h3 {
-  color: var(--text-secondary-dark);
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.stat-item {
-  text-align: center;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-light);
-  transition: var(--transition);
-}
-
-body.dark .stat-item {
-  background: var(--bg-dark);
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-secondary-light);
-}
-
-body.dark .stat-label {
-  color: var(--text-secondary-dark);
-}
-
-.stat-active .stat-value {
-  color: var(--success);
-}
-
-.stat-ending .stat-value {
-  color: var(--warning);
-}
-
-.stat-ended .stat-value {
-  color: var(--danger);
-}
-
-.chart-container {
-  position: relative;
-  height: 200px;
-  width: 100%;
 }
 
 /* Control Panel */
@@ -324,6 +238,61 @@ body.dark .btn-outline:hover {
 .btn-sm {
   padding: 10px 16px;
   font-size: 14px;
+}
+
+/* Dashboard Stats */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--bg-card-light);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  transition: var(--transition);
+}
+
+body.dark .stat-card {
+  background: var(--bg-card-dark);
+}
+
+.stat-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.stat-active .stat-icon {
+  color: var(--success);
+}
+
+.stat-ending .stat-icon {
+  color: var(--warning);
+}
+
+.stat-ended .stat-icon {
+  color: var(--danger);
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: var(--text-secondary-light);
+  font-size: 14px;
+}
+
+body.dark .stat-label {
+  color: var(--text-secondary-dark);
 }
 
 /* Action Bar */
@@ -726,113 +695,6 @@ body.dark .modal-close {
   gap: 12px;
 }
 
-/* Settings Panel */
-.settings-panel {
-  background: var(--bg-card-light);
-  padding: 24px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  margin-bottom: 24px;
-  transition: var(--transition);
-}
-
-body.dark .settings-panel {
-  background: var(--bg-card-dark);
-}
-
-.settings-group {
-  margin-bottom: 24px;
-}
-
-.settings-group:last-child {
-  margin-bottom: 0;
-}
-
-.settings-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.setting-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-light);
-}
-
-body.dark .setting-item {
-  border-color: var(--border-dark);
-}
-
-.setting-item:last-child {
-  border-bottom: none;
-}
-
-.setting-label {
-  font-weight: 500;
-}
-
-.setting-description {
-  font-size: 13px;
-  color: var(--text-secondary-light);
-  margin-top: 4px;
-}
-
-body.dark .setting-description {
-  color: var(--text-secondary-dark);
-}
-
-/* Toggle Switch */
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-}
-
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: .4s;
-  border-radius: 24px;
-}
-
-.toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-input:checked + .toggle-slider {
-  background-color: var(--primary);
-}
-
-input:checked + .toggle-slider:before {
-  transform: translateX(26px);
-}
-
 /* Toast Notification */
 .toast-container {
   position: fixed;
@@ -926,17 +788,28 @@ body.dark .toast-close {
   }
 }
 
+/* Dashboard View */
+.dashboard-view {
+  display: none;
+}
+
+.dashboard-view.active {
+  display: block;
+}
+
+.accounts-view.active {
+  display: block;
+}
+
+.accounts-view {
+  display: none;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
   .accounts-table {
     display: block;
     overflow-x: auto;
-  }
-}
-
-@media (max-width: 992px) {
-  .dashboard {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -985,6 +858,10 @@ body.dark .toast-close {
   .filter-select {
     width: 100%;
   }
+  
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1003,10 +880,6 @@ body.dark .toast-close {
   .btn {
     width: 100%;
   }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
 }
 </style>
 </head>
@@ -1019,209 +892,123 @@ body.dark .toast-close {
   </div>
   <div class="header-actions">
     <button id="dashboardBtn" class="btn btn-outline btn-sm"><i class="fas fa-chart-pie"></i> Dashboard</button>
-    <button id="settingsBtn" class="btn btn-outline btn-sm"><i class="fas fa-cog"></i> Settings</button>
     <div class="dark-mode-toggle" id="darkModeToggle">
       <i class="fas fa-moon"></i>
     </div>
   </div>
 </div>
 
-<div id="dashboardSection" class="dashboard" style="display: none;">
-  <div class="dashboard-card">
-    <h3><i class="fas fa-chart-bar"></i> Trial Status Overview</h3>
-    <div class="chart-container">
-      <canvas id="statusChart"></canvas>
+<div class="dashboard-view" id="dashboardView">
+  <div class="dashboard-stats" id="dashboardStats">
+    <div class="stat-card stat-active">
+      <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+      <div class="stat-value" id="activeCount">0</div>
+      <div class="stat-label">Active Trials</div>
+    </div>
+    <div class="stat-card stat-ending">
+      <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <div class="stat-value" id="endingCount">0</div>
+      <div class="stat-label">Ending Soon</div>
+    </div>
+    <div class="stat-card stat-ended">
+      <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+      <div class="stat-value" id="expiredCount">0</div>
+      <div class="stat-label">Expired Trials</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+      <div class="stat-value" id="totalCount">0</div>
+      <div class="stat-label">Total Accounts</div>
     </div>
   </div>
-  <div class="dashboard-card">
-    <h3><i class="fas fa-calendar"></i> Expiration Timeline</h3>
-    <div class="chart-container">
-      <canvas id="timelineChart"></canvas>
-    </div>
+  
+  <div class="action-bar">
+    <h3>Ending Soon (Next 24 Hours)</h3>
   </div>
-  <div class="dashboard-card">
-    <h3><i class="fas fa-chart-pie"></i> Statistics</h3>
-    <div class="stats-grid">
-      <div class="stat-item stat-active">
-        <div class="stat-value" id="activeCount">0</div>
-        <div class="stat-label">Active</div>
-      </div>
-      <div class="stat-item stat-ending">
-        <div class="stat-value" id="endingCount">0</div>
-        <div class="stat-label">Ending Soon</div>
-      </div>
-      <div class="stat-item stat-ended">
-        <div class="stat-value" id="endedCount">0</div>
-        <div class="stat-label">Expired</div>
-      </div>
-    </div>
-    <div class="stats-grid" style="margin-top: 16px;">
-      <div class="stat-item">
-        <div class="stat-value" id="totalCount">0</div>
-        <div class="stat-label">Total Trials</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value" id="avgDuration">0</div>
-        <div class="stat-label">Avg. Duration</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value" id="daysSaved">0</div>
-        <div class="stat-label">Days Saved</div>
-      </div>
-    </div>
+  
+  <table class="accounts-table" id="dashboardTable">
+    <thead>
+      <tr>
+        <th>Gmail</th>
+        <th>End Date</th>
+        <th>Time Remaining</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="dashboardTableBody">
+      <!-- Ending soon accounts will be inserted here -->
+    </tbody>
+  </table>
+  
+  <div class="empty-state" id="dashboardEmptyState">
+    <div class="empty-icon"><i class="fas fa-check-circle"></i></div>
+    <h3 class="empty-title">No trials ending soon</h3>
+    <p class="empty-desc">You don't have any trials expiring in the next 24 hours.</p>
   </div>
 </div>
 
-<div id="settingsSection" class="settings-panel" style="display: none;">
-  <div class="settings-group">
-    <h3 class="settings-title"><i class="fas fa-bell"></i> Notifications</h3>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">Browser Notifications</div>
-        <div class="setting-description">Show browser notifications for expiring trials</div>
-      </div>
-      <label class="toggle-switch">
-        <input type="checkbox" id="browserNotifications">
-        <span class="toggle-slider"></span>
-      </label>
+<div class="accounts-view active" id="accountsView">
+  <div class="control-panel">
+    <div class="form-group">
+      <label for="email"><i class="fas fa-envelope input-icon"></i> Gmail Address</label>
+      <input type="email" id="email" placeholder="example@gmail.com" required>
     </div>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">Notification Time</div>
-        <div class="setting-description">When to send notifications before expiration</div>
-      </div>
-      <select id="notificationTime" class="filter-select">
-        <option value="1">1 hour before</option>
-        <option value="3">3 hours before</option>
-        <option value="6">6 hours before</option>
-        <option value="12">12 hours before</option>
-        <option value="24" selected>1 day before</option>
-        <option value="72">3 days before</option>
+    <div class="form-group">
+      <label for="startDate"><i class="fas fa-calendar-alt input-icon"></i> Trial Start Date & Time</label>
+      <input type="datetime-local" id="startDate" required>
+    </div>
+    <div class="form-group">
+      <label for="duration"><i class="fas fa-clock input-icon"></i> Trial Duration (days)</label>
+      <input type="number" id="duration" min="1" value="30" required>
+    </div>
+    <div class="form-group" style="justify-content: flex-end;">
+      <button id="addAccount" class="btn btn-primary"><i class="fas fa-plus"></i> Add Account</button>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search Gmail accounts...">
+    </div>
+    <div class="filter-container">
+      <select id="statusFilter" class="filter-select">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="ending">Ending Soon</option>
+        <option value="ended">Expired</option>
       </select>
     </div>
-  </div>
-  
-  <div class="settings-group">
-    <h3 class="settings-title"><i class="fas fa-shield-alt"></i> Security</h3>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">Data Encryption</div>
-        <div class="setting-description">Encrypt your data with a password</div>
-      </div>
-      <label class="toggle-switch">
-        <input type="checkbox" id="dataEncryption">
-        <span class="toggle-slider"></span>
-      </label>
-    </div>
-    <div class="setting-item" id="encryptionPasswordItem" style="display: none;">
-      <div>
-        <div class="setting-label">Encryption Password</div>
-        <div class="setting-description">Set a password to encrypt your data</div>
-      </div>
-      <button id="setPasswordBtn" class="btn btn-outline btn-sm">Set Password</button>
+    <div class="export-import">
+      <button id="exportBtn" class="btn btn-outline"><i class="fas fa-file-export"></i> Export</button>
+      <label for="importFile" class="btn btn-outline"><i class="fas fa-file-import"></i> Import</label>
+      <input type="file" id="importFile" accept=".json" style="display: none;">
     </div>
   </div>
-  
-  <div class="settings-group">
-    <h3 class="settings-title"><i class="fas fa-cloud"></i> Backup & Sync</h3>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">Auto Backup</div>
-        <div class="setting-description">Automatically backup your data daily</div>
-      </div>
-      <label class="toggle-switch">
-        <input type="checkbox" id="autoBackup">
-        <span class="toggle-slider"></span>
-      </label>
-    </div>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">Backup to Google Drive</div>
-        <div class="setting-description">Sync your data with Google Drive</div>
-      </div>
-      <button id="googleDriveBtn" class="btn btn-outline btn-sm">Connect</button>
-    </div>
-  </div>
-  
-  <div class="settings-group">
-    <h3 class="settings-title"><i class="fas fa-language"></i> Language</h3>
-    <div class="setting-item">
-      <div>
-        <div class="setting-label">App Language</div>
-        <div class="setting-description">Change the language of the interface</div>
-      </div>
-      <select id="languageSelect" class="filter-select">
-        <option value="en" selected>English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="pt">Português</option>
-      </select>
-    </div>
-  </div>
-</div>
 
-<div class="control-panel">
-  <div class="form-group">
-    <label for="email"><i class="fas fa-envelope input-icon"></i> Gmail Address</label>
-    <input type="email" id="email" placeholder="example@gmail.com" required>
-  </div>
-  <div class="form-group">
-    <label for="startDate"><i class="fas fa-calendar-alt input-icon"></i> Trial Start Date & Time</label>
-    <input type="datetime-local" id="startDate" required>
-  </div>
-  <div class="form-group">
-    <label for="duration"><i class="fas fa-clock input-icon"></i> Trial Duration (days)</label>
-    <input type="number" id="duration" min="1" value="30" required>
-  </div>
-  <div class="form-group" style="justify-content: flex-end;">
-    <button id="addAccount" class="btn btn-primary"><i class="fas fa-plus"></i> Add Account</button>
-  </div>
-</div>
+  <table class="accounts-table" id="accountsTable">
+    <thead>
+      <tr>
+        <th>Gmail</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+        <th>Time Remaining</th>
+        <th>Progress</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="accountsTableBody">
+      <!-- Accounts will be inserted here -->
+    </tbody>
+  </table>
 
-<div class="action-bar">
-  <div class="search-container">
-    <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" class="search-input" placeholder="Search Gmail accounts...">
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+    <h3 class="empty-title">No accounts yet</h3>
+    <p class="empty-desc">Add your first trial account to start tracking its expiration date and time remaining.</p>
+    <button class="btn btn-primary" id="addFirstAccount"><i class="fas fa-plus"></i> Add Account</button>
   </div>
-  <div class="filter-container">
-    <select id="statusFilter" class="filter-select">
-      <option value="all">All Status</option>
-      <option value="active">Active</option>
-      <option value="ending">Ending Soon</option>
-      <option value="ended">Expired</option>
-    </select>
-  </div>
-  <div class="export-import">
-    <button id="exportBtn" class="btn btn-outline"><i class="fas fa-file-export"></i> Export</button>
-    <button id="exportCsvBtn" class="btn btn-outline"><i class="fas fa-file-csv"></i> CSV</button>
-    <label for="importFile" class="btn btn-outline"><i class="fas fa-file-import"></i> Import</label>
-    <input type="file" id="importFile" accept=".json,.csv" style="display: none;">
-  </div>
-</div>
-
-<table class="accounts-table" id="accountsTable">
-  <thead>
-    <tr>
-      <th>Gmail</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Status</th>
-      <th>Time Remaining</th>
-      <th>Progress</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody id="accountsTableBody">
-    <!-- Accounts will be inserted here -->
-  </tbody>
-</table>
-
-<div class="empty-state" id="emptyState">
-  <div class="empty-icon"><i class="fas fa-inbox"></i></div>
-  <h3 class="empty-title">No accounts yet</h3>
-  <p class="empty-desc">Add your first trial account to start tracking its expiration date and time remaining.</p>
-  <button class="btn btn-primary" id="addFirstAccount"><i class="fas fa-plus"></i> Add Account</button>
 </div>
 
 <div id="editModal" class="modal">
@@ -1251,52 +1038,6 @@ body.dark .toast-close {
   </div>
 </div>
 
-<div id="passwordModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 class="modal-title">Set Encryption Password</h3>
-      <button class="modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="passwordInput">Password</label>
-        <input type="password" id="passwordInput" placeholder="Enter a password">
-      </div>
-      <div class="form-group">
-        <label for="confirmPasswordInput">Confirm Password</label>
-        <input type="password" id="confirmPasswordInput" placeholder="Confirm your password">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button id="cancelPasswordBtn" class="btn btn-outline">Cancel</button>
-      <button id="savePasswordBtn" class="btn btn-primary">Save Password</button>
-    </div>
-  </div>
-</div>
-
-<div id="googleDriveModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 class="modal-title">Google Drive Integration</h3>
-      <button class="modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <p>Connect your Google Drive account to automatically backup your trial data.</p>
-        <div id="googleDriveStatus" style="margin-top: 16px; padding: 12px; border-radius: var(--radius-sm); background: var(--bg-light);">
-          <i class="fas fa-info-circle"></i> Not connected to Google Drive
-        </div>
-      </div>
-      <div class="form-group" id="googleDriveActions">
-        <button id="connectGoogleDrive" class="btn btn-primary"><i class="fab fa-google-drive"></i> Connect to Google Drive</button>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button id="closeGoogleDriveBtn" class="btn btn-outline">Close</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -1304,19 +1045,8 @@ body.dark .toast-close {
 let accounts = [];
 let editingIndex = null;
 let darkMode = localStorage.getItem('darkMode') === 'true';
-let settings = {
-  browserNotifications: localStorage.getItem('browserNotifications') === 'true',
-  notificationTime: parseInt(localStorage.getItem('notificationTime')) || 24,
-  dataEncryption: localStorage.getItem('dataEncryption') === 'true',
-  encryptionPassword: localStorage.getItem('encryptionPassword') || '',
-  autoBackup: localStorage.getItem('autoBackup') === 'true',
-  language: localStorage.getItem('language') || 'en',
-  googleDriveConnected: localStorage.getItem('googleDriveConnected') === 'true'
-};
-
-// Chart instances
-let statusChart = null;
-let timelineChart = null;
+let notifiedAccounts = JSON.parse(localStorage.getItem('notifiedAccounts') || '[]');
+let currentView = 'accounts';
 
 // DOM Elements
 const elements = {
@@ -1336,34 +1066,22 @@ const elements = {
   cancelEditBtn: document.getElementById("cancelEditBtn"),
   modalClose: document.querySelector(".modal-close"),
   exportBtn: document.getElementById("exportBtn"),
-  exportCsvBtn: document.getElementById("exportCsvBtn"),
   importFile: document.getElementById("importFile"),
   darkModeToggle: document.getElementById("darkModeToggle"),
   searchInput: document.getElementById("searchInput"),
   toastContainer: document.getElementById("toastContainer"),
   statusFilter: document.getElementById("statusFilter"),
   dashboardBtn: document.getElementById("dashboardBtn"),
-  dashboardSection: document.getElementById("dashboardSection"),
-  settingsBtn: document.getElementById("settingsBtn"),
-  settingsSection: document.getElementById("settingsSection"),
-  browserNotifications: document.getElementById("browserNotifications"),
-  notificationTime: document.getElementById("notificationTime"),
-  dataEncryption: document.getElementById("dataEncryption"),
-  encryptionPasswordItem: document.getElementById("encryptionPasswordItem"),
-  setPasswordBtn: document.getElementById("setPasswordBtn"),
-  autoBackup: document.getElementById("autoBackup"),
-  googleDriveBtn: document.getElementById("googleDriveBtn"),
-  languageSelect: document.getElementById("languageSelect"),
-  passwordModal: document.getElementById("passwordModal"),
-  passwordInput: document.getElementById("passwordInput"),
-  confirmPasswordInput: document.getElementById("confirmPasswordInput"),
-  cancelPasswordBtn: document.getElementById("cancelPasswordBtn"),
-  savePasswordBtn: document.getElementById("savePasswordBtn"),
-  googleDriveModal: document.getElementById("googleDriveModal"),
-  googleDriveStatus: document.getElementById("googleDriveStatus"),
-  connectGoogleDrive: document.getElementById("connectGoogleDrive"),
-  closeGoogleDriveBtn: document.getElementById("closeGoogleDriveBtn"),
-  googleDriveActions: document.getElementById("googleDriveActions")
+  dashboardView: document.getElementById("dashboardView"),
+  accountsView: document.getElementById("accountsView"),
+  dashboardStats: document.getElementById("dashboardStats"),
+  activeCount: document.getElementById("activeCount"),
+  endingCount: document.getElementById("endingCount"),
+  expiredCount: document.getElementById("expiredCount"),
+  totalCount: document.getElementById("totalCount"),
+  dashboardTable: document.getElementById("dashboardTable"),
+  dashboardTableBody: document.getElementById("dashboardTableBody"),
+  dashboardEmptyState: document.getElementById("dashboardEmptyState")
 };
 
 // Initialize the app
@@ -1373,9 +1091,8 @@ function init() {
   const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   elements.startDateInput.value = localDateTime;
   
-  // Load data and apply settings
+  // Load data and apply dark mode if enabled
   loadData();
-  applySettings();
   setDarkMode(darkMode);
   renderAccounts();
   updateDashboard();
@@ -1387,15 +1104,8 @@ function init() {
   setInterval(updateTimers, 1000);
   
   // Check for notifications
-  setInterval(checkNotifications, 60000); // Check every minute
-  
-  // Request notification permission
-  if ('Notification' in window) {
-    Notification.requestPermission();
-  }
-  
-  // Update Google Drive status
-  updateGoogleDriveStatus();
+  setInterval(checkNotifications, 30000);
+  checkNotifications();
 }
 
 // Set up all event listeners
@@ -1409,36 +1119,97 @@ function setupEventListeners() {
   elements.cancelEditBtn.addEventListener("click", closeEditModal);
   elements.modalClose.addEventListener("click", closeEditModal);
   elements.exportBtn.addEventListener("click", exportAccounts);
-  elements.exportCsvBtn.addEventListener("click", exportAccountsCsv);
   elements.importFile.addEventListener("change", importAccounts);
   elements.darkModeToggle.addEventListener("click", toggleDarkMode);
   elements.searchInput.addEventListener("input", filterAccounts);
   elements.statusFilter.addEventListener("change", filterAccounts);
-  elements.dashboardBtn.addEventListener("click", toggleDashboard);
-  elements.settingsBtn.addEventListener("click", toggleSettings);
-  elements.browserNotifications.addEventListener("change", updateSettings);
-  elements.notificationTime.addEventListener("change", updateSettings);
-  elements.dataEncryption.addEventListener("change", toggleDataEncryption);
-  elements.setPasswordBtn.addEventListener("click", openPasswordModal);
-  elements.autoBackup.addEventListener("change", updateSettings);
-  elements.googleDriveBtn.addEventListener("click", openGoogleDriveModal);
-  elements.languageSelect.addEventListener("change", updateSettings);
-  elements.cancelPasswordBtn.addEventListener("click", closePasswordModal);
-  elements.savePasswordBtn.addEventListener("click", savePassword);
-  elements.connectGoogleDrive.addEventListener("click", connectGoogleDrive);
-  elements.closeGoogleDriveBtn.addEventListener("click", closeGoogleDriveModal);
+  elements.dashboardBtn.addEventListener("click", toggleDashboardView);
   
-  // Close modals when clicking outside
+  // Close modal when clicking outside
   elements.editModal.addEventListener("click", (e) => {
     if (e.target === elements.editModal) closeEditModal();
   });
+}
+
+// Toggle between dashboard and accounts view
+function toggleDashboardView() {
+  if (currentView === 'accounts') {
+    elements.dashboardBtn.innerHTML = '<i class="fas fa-list"></i> Accounts';
+    elements.accountsView.classList.remove('active');
+    elements.dashboardView.classList.add('active');
+    currentView = 'dashboard';
+    updateDashboard();
+  } else {
+    elements.dashboardBtn.innerHTML = '<i class="fas fa-chart-pie"></i> Dashboard';
+    elements.dashboardView.classList.remove('active');
+    elements.accountsView.classList.add('active');
+    currentView = 'accounts';
+  }
+}
+
+// Update dashboard with stats and ending soon accounts
+function updateDashboard() {
+  // Calculate stats
+  const active = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-active').length;
+  const ending = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-ending').length;
+  const expired = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-ended').length;
+  const total = accounts.length;
   
-  elements.passwordModal.addEventListener("click", (e) => {
-    if (e.target === elements.passwordModal) closePasswordModal();
+  // Update stat cards
+  elements.activeCount.textContent = active;
+  elements.endingCount.textContent = ending;
+  elements.expiredCount.textContent = expired;
+  elements.totalCount.textContent = total;
+  
+  // Get accounts ending in next 24 hours
+  const now = new Date();
+  const endingSoon = accounts.filter(acc => {
+    const endDate = new Date(acc.endDate);
+    const diffHours = (endDate - now) / (1000 * 60 * 60);
+    return diffHours <= 24 && diffHours > 0;
   });
   
-  elements.googleDriveModal.addEventListener("click", (e) => {
-    if (e.target === elements.googleDriveModal) closeGoogleDriveModal();
+  // Render ending soon accounts
+  if (endingSoon.length === 0) {
+    elements.dashboardEmptyState.style.display = "block";
+    elements.dashboardTable.style.display = "none";
+  } else {
+    elements.dashboardEmptyState.style.display = "none";
+    elements.dashboardTable.style.display = "table";
+    
+    let dashboardHTML = "";
+    
+    endingSoon.forEach(acc => {
+      const endDate = new Date(acc.endDate);
+      
+      dashboardHTML += `
+        <tr>
+          <td>${acc.email}</td>
+          <td>${formatDateTimeAMPM(endDate)}</td>
+          <td class="time-left">${getTimeLeft(endDate)}</td>
+          <td><span class="status-indicator status-ending">ending</span></td>
+        </tr>
+      `;
+    });
+    
+    elements.dashboardTableBody.innerHTML = dashboardHTML;
+  }
+}
+
+// Check for notifications (1 day before ending)
+function checkNotifications() {
+  const now = new Date();
+  
+  accounts.forEach(acc => {
+    const endDate = new Date(acc.endDate);
+    const diffHours = (endDate - now) / (1000 * 60 * 60);
+    
+    // If less than 24 hours remaining and not notified yet
+    if (diffHours <= 24 && diffHours > 0 && !notifiedAccounts.includes(acc.email)) {
+      showToast(`Trial for ${acc.email} is ending in less than 24 hours!`, "warning");
+      notifiedAccounts.push(acc.email);
+      localStorage.setItem('notifiedAccounts', JSON.stringify(notifiedAccounts));
+    }
   });
 }
 
@@ -1492,329 +1263,6 @@ function setDarkMode(enabled) {
   }
 }
 
-// Dashboard functionality
-function toggleDashboard() {
-  if (elements.dashboardSection.style.display === 'none') {
-    elements.dashboardSection.style.display = 'grid';
-    elements.settingsSection.style.display = 'none';
-    updateDashboard();
-  } else {
-    elements.dashboardSection.style.display = 'none';
-  }
-}
-
-function updateDashboard() {
-  // Update stats
-  const activeCount = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-active').length;
-  const endingCount = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-ending').length;
-  const endedCount = accounts.filter(acc => getStatus(new Date(acc.endDate)) === 'status-ended').length;
-  
-  document.getElementById('activeCount').textContent = activeCount;
-  document.getElementById('endingCount').textContent = endingCount;
-  document.getElementById('endedCount').textContent = endedCount;
-  document.getElementById('totalCount').textContent = accounts.length;
-  
-  // Calculate average duration
-  const avgDuration = accounts.length > 0 
-    ? Math.round(accounts.reduce((sum, acc) => sum + acc.duration, 0) / accounts.length)
-    : 0;
-  document.getElementById('avgDuration').textContent = `${avgDuration}d`;
-  
-  // Calculate days saved (estimated money saved)
-  // Assuming average subscription cost of $10/month
-  const daysSaved = accounts.reduce((sum, acc) => {
-    const endDate = new Date(acc.endDate);
-    if (endDate > new Date()) {
-      const daysRemaining = Math.ceil((endDate - new Date()) / (1000 * 60 * 60 * 24));
-      return sum + daysRemaining;
-    }
-    return sum;
-  }, 0);
-  
-  document.getElementById('daysSaved').textContent = daysSaved;
-  
-  // Update charts
-  updateStatusChart(activeCount, endingCount, endedCount);
-  updateTimelineChart();
-}
-
-function updateStatusChart(active, ending, ended) {
-  const ctx = document.getElementById('statusChart').getContext('2d');
-  
-  // Destroy previous chart if it exists
-  if (statusChart) {
-    statusChart.destroy();
-  }
-  
-  statusChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Active', 'Ending Soon', 'Expired'],
-      datasets: [{
-        data: [active, ending, ended],
-        backgroundColor: [
-          'rgba(52, 199, 89, 0.7)',
-          'rgba(255, 149, 0, 0.7)',
-          'rgba(255, 59, 48, 0.7)'
-        ],
-        borderColor: [
-          'rgba(52, 199, 89, 1)',
-          'rgba(255, 149, 0, 1)',
-          'rgba(255, 59, 48, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }
-  });
-}
-
-function updateTimelineChart() {
-  // Group accounts by expiration date
-  const next7Days = Array(7).fill(0).map((_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() + i);
-    return date.toDateString();
-  });
-  
-  const expirationsByDay = next7Days.map(day => {
-    return accounts.filter(acc => {
-      const expDate = new Date(acc.endDate);
-      return expDate.toDateString() === day && expDate >= new Date();
-    }).length;
-  });
-  
-  const ctx = document.getElementById('timelineChart').getContext('2d');
-  
-  // Destroy previous chart if it exists
-  if (timelineChart) {
-    timelineChart.destroy();
-  }
-  
-  timelineChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: next7Days.map(day => {
-        const date = new Date(day);
-        return `${date.getMonth()+1}/${date.getDate()}`;
-      }),
-      datasets: [{
-        label: 'Trials Expiring',
-        data: expirationsByDay,
-        backgroundColor: 'rgba(0, 122, 255, 0.7)',
-        borderColor: 'rgba(0, 122, 255, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 1
-          }
-        }
-      }
-    }
-  });
-}
-
-// Settings functionality
-function toggleSettings() {
-  if (elements.settingsSection.style.display === 'none') {
-    elements.settingsSection.style.display = 'block';
-    elements.dashboardSection.style.display = 'none';
-  } else {
-    elements.settingsSection.style.display = 'none';
-  }
-}
-
-function applySettings() {
-  elements.browserNotifications.checked = settings.browserNotifications;
-  elements.notificationTime.value = settings.notificationTime;
-  elements.dataEncryption.checked = settings.dataEncryption;
-  elements.autoBackup.checked = settings.autoBackup;
-  elements.languageSelect.value = settings.language;
-  
-  if (settings.dataEncryption) {
-    elements.encryptionPasswordItem.style.display = 'flex';
-  }
-}
-
-function updateSettings() {
-  settings.browserNotifications = elements.browserNotifications.checked;
-  settings.notificationTime = parseInt(elements.notificationTime.value);
-  settings.autoBackup = elements.autoBackup.checked;
-  settings.language = elements.languageSelect.value;
-  
-  localStorage.setItem('browserNotifications', settings.browserNotifications);
-  localStorage.setItem('notificationTime', settings.notificationTime);
-  localStorage.setItem('autoBackup', settings.autoBackup);
-  localStorage.setItem('language', settings.language);
-  
-  showToast("Settings saved", "success");
-}
-
-function toggleDataEncryption() {
-  const enabled = elements.dataEncryption.checked;
-  
-  if (enabled) {
-    if (!settings.encryptionPassword) {
-      openPasswordModal();
-    } else {
-      elements.encryptionPasswordItem.style.display = 'flex';
-      settings.dataEncryption = true;
-      localStorage.setItem('dataEncryption', 'true');
-      showToast("Data encryption enabled", "success");
-    }
-  } else {
-    elements.encryptionPasswordItem.style.display = 'none';
-    settings.dataEncryption = false;
-    localStorage.setItem('dataEncryption', 'false');
-    showToast("Data encryption disabled", "info");
-  }
-}
-
-function openPasswordModal() {
-  elements.passwordModal.style.display = 'flex';
-}
-
-function closePasswordModal() {
-  elements.passwordModal.style.display = 'none';
-  elements.passwordInput.value = '';
-  elements.confirmPasswordInput.value = '';
-  
-  // If enabling encryption but no password was set, toggle back off
-  if (elements.dataEncryption.checked && !settings.encryptionPassword) {
-    elements.dataEncryption.checked = false;
-  }
-}
-
-function savePassword() {
-  const password = elements.passwordInput.value;
-  const confirmPassword = elements.confirmPasswordInput.value;
-  
-  if (!password) {
-    showToast("Please enter a password", "error");
-    return;
-  }
-  
-  if (password !== confirmPassword) {
-    showToast("Passwords do not match", "error");
-    return;
-  }
-  
-  settings.encryptionPassword = password;
-  localStorage.setItem('encryptionPassword', password);
-  
-  if (!elements.dataEncryption.checked) {
-    elements.dataEncryption.checked = true;
-  }
-  
-  settings.dataEncryption = true;
-  localStorage.setItem('dataEncryption', 'true');
-  
-  elements.encryptionPasswordItem.style.display = 'flex';
-  closePasswordModal();
-  
-  showToast("Encryption password set", "success");
-}
-
-// Google Drive integration
-function openGoogleDriveModal() {
-  elements.googleDriveModal.style.display = 'flex';
-  updateGoogleDriveStatus();
-}
-
-function closeGoogleDriveModal() {
-  elements.googleDriveModal.style.display = 'none';
-}
-
-function updateGoogleDriveStatus() {
-  if (settings.googleDriveConnected) {
-    elements.googleDriveStatus.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success);"></i> Connected to Google Drive';
-    elements.googleDriveActions.innerHTML = `
-      <button id="backupToDrive" class="btn btn-primary btn-sm"><i class="fas fa-cloud-upload-alt"></i> Backup Now</button>
-      <button id="disconnectDrive" class="btn btn-outline btn-sm"><i class="fas fa-unlink"></i> Disconnect</button>
-    `;
-    
-    document.getElementById('backupToDrive').addEventListener('click', backupToGoogleDrive);
-    document.getElementById('disconnectDrive').addEventListener('click', disconnectGoogleDrive);
-  } else {
-    elements.googleDriveStatus.innerHTML = '<i class="fas fa-info-circle"></i> Not connected to Google Drive';
-    elements.googleDriveActions.innerHTML = `
-      <button id="connectGoogleDrive" class="btn btn-primary"><i class="fab fa-google-drive"></i> Connect to Google Drive</button>
-    `;
-    document.getElementById('connectGoogleDrive').addEventListener('click', connectGoogleDrive);
-  }
-}
-
-function connectGoogleDrive() {
-  // Simulate Google Drive connection process
-  showToast("Connecting to Google Drive...", "info");
-  
-  setTimeout(() => {
-    settings.googleDriveConnected = true;
-    localStorage.setItem('googleDriveConnected', 'true');
-    updateGoogleDriveStatus();
-    showToast("Successfully connected to Google Drive", "success");
-  }, 2000);
-}
-
-function disconnectGoogleDrive() {
-  settings.googleDriveConnected = false;
-  localStorage.setItem('googleDriveConnected', 'false');
-  updateGoogleDriveStatus();
-  showToast("Disconnected from Google Drive", "info");
-}
-
-function backupToGoogleDrive() {
-  // Simulate backup process
-  showToast("Backing up data to Google Drive...", "info");
-  
-  setTimeout(() => {
-    showToast("Backup completed successfully", "success");
-  }, 1500);
-}
-
-// Check for notifications
-function checkNotifications() {
-  if (!settings.browserNotifications) return;
-  
-  accounts.forEach(acc => {
-    const endDate = new Date(acc.endDate);
-    const timeDiff = endDate - new Date();
-    const hoursDiff = timeDiff / (1000 * 60 * 60);
-    
-    // Check if we should send a notification (within the notification time window)
-    if (hoursDiff > 0 && hoursDiff <= settings.notificationTime && !acc.notified) {
-      sendNotification(acc);
-      acc.notified = true;
-      saveData();
-    }
-  });
-}
-
-function sendNotification(account) {
-  if ('Notification' in window && Notification.permission === 'granted') {
-    const timeLeft = getTimeLeft(new Date(account.endDate));
-    new Notification('Trial Expiring Soon', {
-      body: `${account.email} trial expires in ${timeLeft}`,
-      icon: 'https://example.com/icon.png' // Replace with your icon
-    });
-  }
-}
-
 // Account management functions
 function addAccount() {
   const email = elements.emailInput.value.trim();
@@ -1838,8 +1286,7 @@ function addAccount() {
     email, 
     startDate, 
     duration, 
-    endDate: endDate.toISOString(),
-    notified: false
+    endDate: endDate.toISOString() 
   });
   
   saveData();
@@ -1971,6 +1418,11 @@ function updateTimers() {
       row.setAttribute("data-status", statusClass.replace('status-', ''));
     }
   });
+  
+  // Update dashboard if it's active
+  if (currentView === 'dashboard') {
+    updateDashboard();
+  }
 }
 
 function filterAccounts() {
@@ -2055,7 +1507,6 @@ function saveEdit() {
   const endDate = new Date(elements.editStartDate.value);
   endDate.setDate(endDate.getDate() + accounts[editingIndex].duration);
   accounts[editingIndex].endDate = endDate.toISOString();
-  accounts[editingIndex].notified = false; // Reset notification
   
   saveData();
   renderAccounts();
@@ -2067,6 +1518,11 @@ function saveEdit() {
 
 function removeAccount(index) {
   if (confirm("Are you sure you want to remove this account?")) {
+    // Remove from notified accounts if present
+    const email = accounts[index].email;
+    notifiedAccounts = notifiedAccounts.filter(acc => acc !== email);
+    localStorage.setItem('notifiedAccounts', JSON.stringify(notifiedAccounts));
+    
     accounts.splice(index, 1);
     saveData();
     renderAccounts();
@@ -2087,28 +1543,6 @@ function exportAccounts() {
   showToast("Accounts exported successfully", "success");
 }
 
-function exportAccountsCsv() {
-  let csvContent = "Email,Start Date,End Date,Duration,Status\n";
-  
-  accounts.forEach(acc => {
-    const startDate = new Date(acc.startDate);
-    const endDate = new Date(acc.endDate);
-    const status = getStatus(endDate).replace('status-', '');
-    
-    csvContent += `"${acc.email}","${formatDateTimeAMPM(startDate)}","${formatDateTimeAMPM(endDate)}",${acc.duration},${status}\n`;
-  });
-  
-  const dataUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
-  const exportFileDefaultName = 'premium_trial_accounts.csv';
-  
-  const linkElement = document.createElement("a");
-  linkElement.setAttribute("href", dataUri);
-  linkElement.setAttribute("download", exportFileDefaultName);
-  linkElement.click();
-  
-  showToast("Accounts exported as CSV", "success");
-}
-
 function importAccounts(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -2116,16 +1550,12 @@ function importAccounts(e) {
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
-      let imported;
-      if (file.name.endsWith('.csv')) {
-        imported = parseCsv(e.target.result);
-      } else {
-        imported = JSON.parse(e.target.result);
-      }
-      
+      const imported = JSON.parse(e.target.result);
       if (Array.isArray(imported)) {
-        // Add imported accounts to existing ones
-        accounts = [...accounts, ...imported];
+        accounts = imported;
+        // Reset notified accounts when importing
+        notifiedAccounts = [];
+        localStorage.setItem('notifiedAccounts', JSON.stringify(notifiedAccounts));
         saveData();
         renderAccounts();
         updateDashboard();
@@ -2141,78 +1571,14 @@ function importAccounts(e) {
   e.target.value = "";
 }
 
-function parseCsv(csvData) {
-  const lines = csvData.split('\n');
-  const accounts = [];
-  
-  // Skip header line
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    
-    // Simple CSV parsing (this may need improvement for more complex cases)
-    const values = line.split(',').map(value => {
-      // Remove quotes if present
-      return value.replace(/^"(.*)"$/, '$1').trim();
-    });
-    
-    if (values.length >= 5) {
-      const email = values[0];
-      const startDate = new Date(values[1]);
-      const endDate = new Date(values[2]);
-      const duration = parseInt(values[3]);
-      
-      accounts.push({
-        email,
-        startDate: startDate.toISOString(),
-        duration,
-        endDate: endDate.toISOString(),
-        notified: false
-      });
-    }
-  }
-  
-  return accounts;
-}
-
 function saveData() {
-  let dataToSave = JSON.stringify(accounts);
-  
-  // Encrypt data if encryption is enabled
-  if (settings.dataEncryption && settings.encryptionPassword) {
-    // Simple encryption (in a real app, use a proper encryption library)
-    dataToSave = btoa(settings.encryptionPassword + '|' + dataToSave);
-  }
-  
-  localStorage.setItem("accounts", dataToSave);
-  
-  // Auto backup to Google Drive if enabled
-  if (settings.autoBackup && settings.googleDriveConnected) {
-    backupToGoogleDrive();
-  }
+  localStorage.setItem("accounts", JSON.stringify(accounts));
 }
 
 function loadData() {
-  let data = localStorage.getItem("accounts");
+  const data = localStorage.getItem("accounts");
   if (data) {
     try {
-      // Check if data is encrypted
-      if (settings.dataEncryption && settings.encryptionPassword) {
-        try {
-          const decrypted = atob(data);
-          const parts = decrypted.split('|');
-          if (parts[0] === settings.encryptionPassword) {
-            data = parts.slice(1).join('|');
-          } else {
-            showToast("Incorrect encryption password", "error");
-            return;
-          }
-        } catch (e) {
-          showToast("Error decrypting data", "error");
-          return;
-        }
-      }
-      
       accounts = JSON.parse(data);
     } catch (e) {
       accounts = [];
